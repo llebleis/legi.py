@@ -4,7 +4,7 @@ CREATE TABLE db_meta
 , value   blob
 );
 
-INSERT INTO db_meta (key, value) VALUES ('schema_version', 6);
+INSERT INTO db_meta (key, value) VALUES ('schema_version', 7);
 
 CREATE TABLE textes
 ( id            integer    primary key not null
@@ -34,6 +34,7 @@ CREATE TABLE textes_versions
 , date_fin                day
 , autorite                text
 , ministere               text
+, mcs_txt                 text
 , num                     text
 , num_sequence            int
 , nor                     char(12)
@@ -43,6 +44,7 @@ CREATE TABLE textes_versions
 , origine_publi           text
 , page_deb_publi          int
 , page_fin_publi          int
+, sm                      text
 , visas                   text
 , signataires             text
 , tp                      text

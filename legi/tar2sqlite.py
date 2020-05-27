@@ -142,14 +142,14 @@ def process_archive(db, archive_path, raw, process_links=True, check_html=True):
     ARTICLE_TAGS = set('NOTA BLOC_TEXTUEL'.split())
     SECTION_TA_TAGS = set('TITRE_TA COMMENTAIRE'.split())
     TEXTELR_TAGS = set('VERSIONS'.split())
-    TEXTE_VERSION_TAGS = set('VISAS SIGNATAIRES TP NOTA ABRO RECT'.split())
+    TEXTE_VERSION_TAGS = set('VISAS SIGNATAIRES TP NOTA ABRO RECT SM'.split())
     META_ARTICLE_TAGS = set('NUM ETAT DATE_DEBUT DATE_FIN TYPE'.split())
     META_CHRONICLE_TAGS = set("""
         NUM NUM_SEQUENCE NOR DATE_PUBLI DATE_TEXTE DERNIERE_MODIFICATION
         ORIGINE_PUBLI PAGE_DEB_PUBLI PAGE_FIN_PUBLI
     """.split())
     META_VERSION_TAGS = set(
-        'TITRE TITREFULL ETAT DATE_DEBUT DATE_FIN AUTORITE MINISTERE'.split()
+        'TITRE TITREFULL ETAT DATE_DEBUT DATE_FIN AUTORITE MINISTERE MCS_TXT'.split()
     )
     TABLES_MAP = {'ARTI': 'articles', 'SCTA': 'sections', 'TEXT': 'textes_'}
     TYPELIEN_MAP = {
@@ -350,10 +350,7 @@ def process_archive(db, archive_path, raw, process_links=True, check_html=True):
                 scrape_tags(attrs, root, SECTION_TA_TAGS)
                 section_id = row_id
                 contexte = root.find('CONTEXTE/TEXTE')
-                try:
-                    assert attr(contexte, 'cid') == row_cid
-                except:
-                    import pdb; pdb.set_trace()
+                assert attr(contexte, 'cid') == row_cid
                 parents = contexte.findall('.//TITRE_TM')
                 if parents:
                     attrs['parent'] = attr(parents[-1], 'id')
